@@ -1,0 +1,7 @@
+pip install opencv-python
+pip install darknet
+pip install torch
+pip install numpy
+pip install numba
+pip install itertools
+pip install imghdr
