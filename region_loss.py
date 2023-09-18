@@ -1,7 +1,7 @@
 import numba
 import torch.nn as nn
 import torch.nn.functional as F
-from tools.torch_utils import *
+from torch_utils import *
 
 
 @numba.njit

@@ -1,5 +1,5 @@
 import torch
-from tools.torch_utils import convert2cpu
+from torch_utils import convert2cpu
 
 
 def parse_cfg(cfgfile):
@@ -344,7 +344,7 @@ def save_fc(fp, fc_model):
 if __name__ == "__main__":
     import sys
 
-    blocks = parse_cfg("cfg/yolo.cfg")
+    blocks = parse_cfg("yolov4.cfg")
     if len(sys.argv) == 2:
         blocks = parse_cfg(sys.argv[1])
     print_cfg(blocks)

@@ -12,7 +12,7 @@ import itertools
 import struct
 import imghdr
 
-from tools import utils
+import utils
 
 # Bounding box intersection over union
 @numba.njit

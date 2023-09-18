@@ -1,11 +1,11 @@
 
 import cv2
 import argparse
-from tools.utils import *
-from tools.torch_utils import *
-from tools.darknet2pytorch import Darknet
-
-# from tools.VideoCapture import VideoCapture
+from utils import *
+from torch_utils import *
+from darknet2pytorch import Darknet
+#from tool_utils import *
+#from VideoCapture import VideoCapture
 
 
 def str2int(source):
@@ -117,7 +117,7 @@ def arguments():
     parser.add_argument(
         "-cfgfile",
         type=str,
-        default="./cfg/yolov4.cfg",
+        default="yolov4.cfg",
         help="Path to the configuration file",
         dest="cfgfile",
     )
@@ -133,7 +133,7 @@ def arguments():
     parser.add_argument(
         "-namesfile",
         type=str,
-        default="./cfg/classes.names",
+        default="classes.names",
         help="Path to the classes name file",
         dest="namesfile",
     )
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     args = arguments()
 
     """ Start the inference function """
-    run_inference(
+    run_inference (
         args.cfgfile,
         args.weightfile,
         args.namesfile,
@@ -196,4 +196,5 @@ if __name__ == "__main__":
         args.conf_thresh,
         args.nms_thresh,
         args.save_net,
+    
     )
