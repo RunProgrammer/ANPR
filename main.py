@@ -1,5 +1,6 @@
 
 import cv2
+import cv2
 import argparse
 from utils import *
 from torch_utils import *
@@ -39,12 +40,39 @@ def run_inference(cfgfile, weightfile, namesfile, source, output, conf, nms, sav
 
     model.eval()
     with torch.no_grad():
-
-       
         source = str2int(source)
         cap = cv2.VideoCapture(source)
+        harcascade = "haarcascade_russian_plate_number.xml"
 
-        """Get height width and frame rate of input video """
+        #cap = cv2.VideoCapture(0)
+
+        cap.set(3, 640) # width
+        cap.set(4, 480) #height
+
+        min_area = 500
+        count = 0
+
+        while True:
+            success, img = cap.read()
+
+            plate_cascade = cv2.CascadeClassifier(harcascade)
+            img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            plates = plate_cascade.detectMultiScale(img_gray, 1.1, 4)
+            print('Number of detected license plates:', len(plates))
+            for (x,y,w,h) in plates:
+
+   
+   # draw bounding rectangle around the license number plate
+                cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
+                gray_plates = img_gray[y:y+h, x:x+w]
+                color_plates = img[y:y+h, x:x+w]
+                
+                # save number plate detected
+                cv2.imwrite('Numberplate.jpg', gray_plates)
+                cv2.imshow('Number Plate', gray_plates)
+                cv2.imshow('Number Plate Image', img)
+                cv2.waitKey(0)
+                    
         width = int(cap.get(3))
         height = int(cap.get(4))
         frame_rate = int(cap.get(cv2.CAP_PROP_FPS))
